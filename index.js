@@ -24,8 +24,18 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-
-
+app.use(bodyParser.urlencoded({extended: false}));
+app.route("/api/date")
+  .get(function(req, res, next){
+    req.date = req.query.date;
+    console.log(req.date);
+    res.json({"unix": Date.unix()})
+  })
+/*app.get("/api/date", function(req, res){
+  console.log(req.query.date);
+  res.json({"unix": Date.unix});
+})
+*/
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
